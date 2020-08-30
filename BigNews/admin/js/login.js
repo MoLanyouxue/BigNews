@@ -14,7 +14,7 @@ $(function () {
         FormSerializeEmpty($data);
         $.ajax({
             type: 'post',
-            url: 'http://localhost:8080/api/v1/admin/user/login',
+            url: BigNew.user_login,
             data: $data,
             beforeSend: function () {
                 e.preventDefault();//==>阻止默认事件
@@ -29,10 +29,12 @@ $(function () {
                     // 给模态框注册一个隐藏触发的事件
                     $modal.on('hidden.bs.modal', function (e) {
                         // do something...
+                        // 将服务器响应回来的token存储到本地存储中
+                        localStorage.setItem('token',login.token);
                         // 跳转到主页面
                         window.location.href = './index.html'
                     });
-                }else if(login.code === 400){
+                }else {
                     $modal.modal('show');
                     $p.html(login.msg);
                 }
