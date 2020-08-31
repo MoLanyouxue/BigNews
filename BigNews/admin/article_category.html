@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>文章列表</title>
+</head>
+
+<body>
     <link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/iconfont.css">
@@ -14,42 +17,87 @@
     <script src="./libs/bootstrap/js/bootstrap.min.js"></script>
     <!-- 引入模板引擎js文件 -->
     <script src="./libs/template-web.js"></script>
-</head>
+    <!-- 引入http的js文件 -->
+    <script src="./js/http.js"></script>
+    <!-- 引入article_category的js文件 -->
+    <script src="./js/article_category.js"></script>
+    </head>
 
-<body>
-    <div class="container-fluid">
-        <div class="common_title">
-            文章类别管理
-        </div>
-        <div class="container-fluid common_con">
-            <table class="table table-striped table-bordered table-hover mp20 category_table">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>Slug</th>
-                        <th class="text-center" width="100">操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+    <body>
+        <div class="container-fluid">
+            <div class="common_title">
+                文章类别管理
+            </div>
+            <div class="container-fluid common_con">
+                <table class="table table-striped table-bordered table-hover mp20 category_table">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>Slug</th>
+                            <th class="text-center" width="100">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <!-- <tr>
                         <td>奇趣事</td>
                         <td>funny</td>
                         <td class="text-center">
                             <a href="javascript:void(0)" data-toggle="modal" class=" btn btn-info btn-xs">编辑</a>
                             <a href="javascript:void(0)" class="btn btn-danger btn-xs">删除</a>
                         </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3" class="text-center">
-                            <a href="javascript:void(0)" class="btn btn-success" id="xinzengfenlei" data-toggle="modal"
-                                data-target="#myModal">新增分类</a>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+                    </tr> -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                <a href="javascript:void(0)" class="btn btn-success" id="xinzengfenlei"
+                                    data-toggle="modal" data-target="#myModal">新增分类</a>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">温馨提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p style="color: #666;font-weight: normal;margin-bottom: 5px;"> 文章分类名称</p>
+                            <input type="text" class="form-control" id="name" placeholder="name">
+                        </div>
+                        <div class="modal-body">
+                            <p style="color: #666;font-weight: normal;margin-bottom: 5px;">文章分类别名</p>
+                            <input type="text" class="form-control" id = 'slug' placeholder="slug">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="sureBtn">确认添加</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>
+        <!-- 准备模板文件 -->
+        <script type="text/template" id="template">
+        {{each data v}}
+            <tr>
+                <td>{{v.name}}</td>
+                <td>{{v.slug}}</td>
+                <td class="text-center">
+                    <a href="javascript:void(0)" data-toggle="modal" class=" btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" data-id={{v.id}}>编辑</a>
+                    <a href="javascript:void(0)" class="btn btn-danger btn-xs"  data-toggle="modal" data-target="#myModal" data-id={{v.id}} id='delBtn'>删除</a>
+                </td>
+            </tr>
+        {{/each}}
+
+    </script>
+
+    </body>
 
 </html>
