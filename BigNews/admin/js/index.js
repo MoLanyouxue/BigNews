@@ -4,11 +4,15 @@ $(function () {
         url: BigNew.user_info,
         type: 'get',
         success: function (info) {
-            console.log(info.data);
-            // 渲染页面
-            $('.user_info>span').text('欢迎 '+info.data.nickname);
-            $('.user_info>img').attr('src',info.data.userPic);
-            $('.user_center_link>img').attr('src',info.data.userPic);
+            // console.log(info.data);
+            if(info.code === 200){
+                // 左侧昵称
+                $('.user_info>span').text('欢迎 '+info.data.nickname);
+                // 左侧头像
+                $('.user_info>img').attr('src',info.data.userPic);
+                // 右侧头像
+                $('.user_center_link>img').attr('src',info.data.userPic);
+            }
         }
 
     });
@@ -38,9 +42,14 @@ $(function () {
     });
 
     
-    /*   4、二级列表显示  */
+    /*   4、给li标签注册时间进行高亮的显示   */
     $('.level02>li').click(function(){
         $(this).addClass('active').siblings().removeClass('active');
     });
-   
+
+    // 5、模态框
+    function modal(text){
+        $('.modal-body>p').text(text);
+        $('.modal').show();
+    }
 });
